@@ -23,18 +23,6 @@ go get github.com/kylegrahammatzen/autumn-go
 3. Track usage when customers consume features
 4. Let Autumn handle all the complex billing logic and Stripe integration
 
-### Configuration Options
-
-Use a custom HTTP client:
-```go
-httpClient := &http.Client{Timeout: 60 * time.Second}
-client := autumn.NewClient("your-token", autumn.WithHTTPClient(httpClient))
-```
-
-Use a custom base URL:
-```go
-client := autumn.NewClient("your-token", autumn.WithBaseURL("https://your-instance.com"))
-```
 
 ## Examples
 
