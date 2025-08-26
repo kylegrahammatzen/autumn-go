@@ -28,10 +28,29 @@ type BillingPortalResponse = autumn.BillingPortalResponse
 type CustomerProduct = autumn.CustomerProduct
 type CustomerFeature = autumn.CustomerFeature
 
+// Product Management Types
+type PriceTier = autumn.PriceTier
+type ProductItemConfig = autumn.ProductItemConfig
+type FreeTrialDuration = autumn.FreeTrialDuration
+type FreeTrialOption = autumn.FreeTrialOption
+type CreateProductOptions = autumn.CreateProductOptions
+type ProductResponse = autumn.ProductResponse
+
+// Free Trial Duration Constants
+const (
+	FreeTrialDurationDay   = autumn.FreeTrialDurationDay
+	FreeTrialDurationMonth = autumn.FreeTrialDurationMonth
+	FreeTrialDurationYear  = autumn.FreeTrialDurationYear
+)
+
 func NewClient(token string) *Client {
 	return autumn.NewClient(token)
 }
 
 func StringPtr(s string) *string {
 	return autumn.StringPtr(s)
+}
+
+func FloatPtr(f float64) *float64 {
+	return autumn.FloatPtr(f)
 }

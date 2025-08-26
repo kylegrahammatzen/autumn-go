@@ -18,6 +18,7 @@ type Client struct {
 	token      string
 	httpClient *http.Client
 	Customers  *CustomersClient
+	Products   *ProductsClient
 }
 
 func NewClient(token string) *Client {
@@ -28,6 +29,7 @@ func NewClient(token string) *Client {
 		},
 	}
 	client.Customers = &CustomersClient{client: client}
+	client.Products = &ProductsClient{client: client}
 	return client
 }
 
@@ -225,6 +227,29 @@ func (c *CustomersClient) SetBalance(customerID string, options SetBalanceOption
 func (c *CustomersClient) BillingPortal(customerID string, options BillingPortalOptions) (*BillingPortalResponse, error) {
 	var response BillingPortalResponse
 	err := c.client.request("POST", "/customers/"+customerID+"/billing_portal", options, &response)
+	if err != nil {
+		return nil, err
+	}
+	return &response, nil
+}
+
+// ProductsClient handles all product management operations
+type ProductsClient struct {
+	client *Client
+}
+
+func (p *ProductsClient) Create(options CreateProductOptions) (*ProductResponse, error) {
+	var response ProductResponse
+	err := p.client.request("POST", "/products", options, &response)
+	if err != nil {
+		return nil, err
+	}
+	return &response, nil
+}
+
+func (p *ProductsClient) Get(productID string) (*ProductResponse, error) {
+	var response ProductResponse
+	err := p.client.request("GET", "/products/"+productID, nil, &response)
 	if err != nil {
 		return nil, err
 	}

@@ -17,3 +17,11 @@ Customer lifecycle management operations including:
 - Retrieving detailed customer information
 - Setting feature balances manually
 - Generating billing portal URLs for self-service
+
+### [Product Management](./product-management/)
+
+Product creation and configuration including:
+- Creating products with pricing and feature items
+- Retrieving detailed product information
+- Configuring free trials and usage models
+- Managing different feature types (single-use, continuous-use)
