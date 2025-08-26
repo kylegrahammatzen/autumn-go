@@ -150,11 +150,25 @@ func (c *Client) Track(customerID string, options TrackOptions) (*TrackResponse,
 	return &response, nil
 }
 
-func (c *Client) Checkout(customerID, productID string, options CheckoutOptions) (*CheckoutResponse, error) {
+func (c *Client) Checkout(customerID string, options CheckoutOptions) (*CheckoutResponse, error) {
+	if options.ProductID == nil && len(options.ProductIDs) == 0 {
+		return nil, &Error{Code: "INVALID_REQUEST", Message: "Either ProductID or ProductIDs must be provided"}
+	}
+
 	req := CheckoutRequest{
-		CustomerID: customerID,
-		ProductID:  productID,
-		SuccessURL: options.SuccessURL,
+		CustomerID:            customerID,
+		ProductID:             "",
+		ProductIDs:            options.ProductIDs,
+		SuccessURL:            options.SuccessURL,
+		Options:               options.Options,
+		Reward:                options.Reward,
+		EntityID:              options.EntityID,
+		CustomerData:          options.CustomerData,
+		CheckoutSessionParams: options.CheckoutSessionParams,
+	}
+
+	if options.ProductID != nil {
+		req.ProductID = *options.ProductID
 	}
 
 	var response CheckoutResponse

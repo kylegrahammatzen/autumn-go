@@ -35,7 +35,14 @@ type TrackOptions struct {
 }
 
 type CheckoutOptions struct {
-	SuccessURL *string `json:"success_url,omitempty"`
+	ProductID                *string                `json:"product_id,omitempty"`
+	ProductIDs               []string               `json:"product_ids,omitempty"`
+	SuccessURL               *string                `json:"success_url,omitempty"`
+	Options                  []CheckoutOption       `json:"options,omitempty"`
+	Reward                   *string                `json:"reward,omitempty"`
+	EntityID                 *string                `json:"entity_id,omitempty"`
+	CustomerData             *CustomerData          `json:"customer_data,omitempty"`
+	CheckoutSessionParams    map[string]interface{} `json:"checkout_session_params,omitempty"`
 }
 
 type AttachRequest struct {
@@ -74,9 +81,15 @@ type TrackRequest struct {
 }
 
 type CheckoutRequest struct {
-	CustomerID string  `json:"customer_id"`
-	ProductID  string  `json:"product_id"`
-	SuccessURL *string `json:"success_url,omitempty"`
+	CustomerID            string                 `json:"customer_id"`
+	ProductID             string                 `json:"product_id"`
+	ProductIDs            []string               `json:"product_ids,omitempty"`
+	SuccessURL            *string                `json:"success_url,omitempty"`
+	Options               []CheckoutOption       `json:"options,omitempty"`
+	Reward                *string                `json:"reward,omitempty"`
+	EntityID              *string                `json:"entity_id,omitempty"`
+	CustomerData          *CustomerData          `json:"customer_data,omitempty"`
+	CheckoutSessionParams map[string]interface{} `json:"checkout_session_params,omitempty"`
 }
 
 type AttachResponse struct {
@@ -92,7 +105,7 @@ type CheckResponse struct {
 	Allowed        bool             `json:"allowed"`
 	CustomerID     string           `json:"customer_id"`
 	Code           string           `json:"code"`
-	Balance        *float64         `json:"balance"`
+	Balance        *BalanceInfo     `json:"balance"`
 	FeatureID      *string          `json:"feature_id"`
 	ProductID      *string          `json:"product_id"`
 	Status         *string          `json:"status"`
@@ -137,6 +150,17 @@ type Feature struct {
 type AttachOption struct {
 	Key   string      `json:"key"`
 	Value interface{} `json:"value"`
+}
+
+type CheckoutOption struct {
+	FeatureID string `json:"feature_id"`
+	Quantity  int    `json:"quantity"`
+}
+
+type BalanceInfo struct {
+	FeatureID       string `json:"feature_id"`
+	RequiredBalance int    `json:"required_balance"`
+	Balance         int    `json:"balance"`
 }
 
 type CheckoutLine struct {
