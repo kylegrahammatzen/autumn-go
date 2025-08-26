@@ -64,7 +64,10 @@ func main() {
 `, trackResp.ID, trackResp.Code, trackResp.CustomerID, featureID, eventName)
 
 	fmt.Println("Checking access again after usage...")
-	checkResp2, err := client.Check("john_doe", checkOptions)
+	featureCheckOptions := autumn.CheckOptions{
+		FeatureID: autumn.StringPtr("chat_messages"),
+	}
+	checkResp2, err := client.Check("john_doe", featureCheckOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -87,8 +90,9 @@ func main() {
 		fmt.Println("Customer has run out of chat messages.")
 		
 		fmt.Println("Creating checkout session...")
+		// Note: If checkout returns $0.00, the customer already has access or no payment is needed
 		checkoutOptions := autumn.CheckoutOptions{
-			ProductID:  autumn.StringPtr("pro"),
+			ProductID:  autumn.StringPtr("example"),
 			SuccessURL: autumn.StringPtr("https://example.com/success"),
 		}
 		
