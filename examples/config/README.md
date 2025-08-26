@@ -8,7 +8,7 @@ Define your Autumn products and features using Go configuration files, similar t
 2. Replace the example key in `main.go` with your actual key
 3. Run the example:
    ```bash
-   cd examples/config-example
+   cd examples/config
    go run .
    ```
 

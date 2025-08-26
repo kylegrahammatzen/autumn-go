@@ -15,10 +15,35 @@ go get github.com/kylegrahammatzen/autumn-go
 
 ## Usage
 
-1. Attach customers to products/subscription plans
-2. Check if customers have access to features before granting access
-3. Track usage when customers consume features
-4. Let Autumn handle all the complex billing logic and Stripe integration
+1. Define products and features using configuration files (similar to TypeScript CLI)
+2. Attach customers to products/subscription plans
+3. Check if customers have access to features before granting access
+4. Track usage when customers consume features
+5. Let Autumn handle all the complex billing logic and Stripe integration
+
+### Config
+
+```go
+import "github.com/kylegrahammatzen/autumn-go"
+
+// Define features
+var messages = autumn.NewFeature("messages", "Messages", autumn.FeatureTypeSingleUse)
+
+// Create products 
+var pro = autumn.NewProduct("pro", "Pro",
+    autumn.PriceItemWithInterval(20, autumn.IntervalMonth),
+    autumn.FeatureItemWithUsage(messages.ID, 1000, autumn.IntervalPtr(autumn.IntervalMonth)),
+)
+
+// Convert to API calls
+autumnProducts := autumn.Config{
+    Features: []autumn.FeatureConfig{messages},
+    Products: []autumn.ProductConfig{pro},
+}.ToAutumnProducts()
+
+client := autumn.NewClient("your-api-key")
+product, err := client.Products.Create(autumnProducts[0])
+```
 
 
 ## Examples

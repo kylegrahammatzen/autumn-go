@@ -33,3 +33,11 @@ Feature usage tracking and entity management including:
 - Creating and managing entities (seats, team members)
 - Batch entity operations
 - Usage tracking for different feature types
+
+### [Configuration-Based Management](./config/)
+
+Define products and features using Go configuration files including:
+- Type-safe feature and product definitions
+- Configuration-driven product creation
+- Seamless conversion to Autumn API calls
+- Similar to TypeScript CLI approach

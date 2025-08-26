@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	client := autumn.NewClient("am_sk_test_MJu6VCtTKTUBpPh9XcT4f7GigFufIfKA2qsAvZ2FGF")
+	client := autumn.NewClient("am_sk_test_9Kj2LmN8qR...")
 
 	autumnProducts := Config.ToAutumnProducts()
 
