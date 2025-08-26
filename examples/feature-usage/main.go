@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	client := autumn.NewClient("am_sk_test_0kQxxSaElZDI6ny407rZqinEllV8k3fTi51bPnuXVJ")
+	client := autumn.NewClient("am_sk_test_9Kj2LmN8qR...")
 
 	customerID := "jane_doe"
 
