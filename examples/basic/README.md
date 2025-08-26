@@ -1,12 +1,8 @@
 # Basic Example
 
----
-
 This example demonstrates the core functionality of the Autumn Go SDK for subscription and usage tracking.
 
 ## What This Example Does
-
----
 
 1. Attaches a customer to the "example" product
 2. Checks access to ensure the customer can use features
@@ -16,16 +12,12 @@ This example demonstrates the core functionality of the Autumn Go SDK for subscr
 
 ## Running the Example
 
----
-
 ```bash
 cd examples/basic
 go run main.go
 ```
 
 ## Expected Output
-
----
 
 The example will show:
 - Customer attachment confirmation
@@ -34,8 +26,6 @@ The example will show:
 - Checkout flow (if needed) or confirmation of remaining access
 
 ## Understanding the Output
-
----
 
 ### Balance Information
 
@@ -51,8 +41,6 @@ If a customer runs out of credits, the example initiates checkout:
 - Checkout URL: Stripe payment link for upgrades (when payment required)
 
 ## Configuration
-
----
 
 The example uses:
 - Product ID: `example` 
