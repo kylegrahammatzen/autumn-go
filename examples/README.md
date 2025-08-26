@@ -25,3 +25,11 @@ Product creation and configuration including:
 - Retrieving detailed product information
 - Configuring free trials and usage models
 - Managing different feature types (single-use, continuous-use)
+
+### [Feature Usage Management](./feature-usage/)
+
+Feature usage tracking and entity management including:
+- Setting feature usage values directly
+- Creating and managing entities (seats, team members)
+- Batch entity operations
+- Usage tracking for different feature types

@@ -28,6 +28,10 @@ type BillingPortalResponse = autumn.BillingPortalResponse
 type CustomerProduct = autumn.CustomerProduct
 type CustomerFeature = autumn.CustomerFeature
 
+// Feature Management Types
+type SetUsageOptions = autumn.SetUsageOptions
+type EntityOptions = autumn.EntityOptions
+
 // Product Management Types
 type PriceTier = autumn.PriceTier
 type ProductItemConfig = autumn.ProductItemConfig

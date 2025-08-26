@@ -19,6 +19,7 @@ type Client struct {
 	httpClient *http.Client
 	Customers  *CustomersClient
 	Products   *ProductsClient
+	Features   *FeaturesClient
 }
 
 func NewClient(token string) *Client {
@@ -30,6 +31,7 @@ func NewClient(token string) *Client {
 	}
 	client.Customers = &CustomersClient{client: client}
 	client.Products = &ProductsClient{client: client}
+	client.Features = &FeaturesClient{client: client}
 	return client
 }
 
@@ -254,4 +256,41 @@ func (p *ProductsClient) Get(productID string) (*ProductResponse, error) {
 		return nil, err
 	}
 	return &response, nil
+}
+
+// FeaturesClient handles feature usage and entity management
+type FeaturesClient struct {
+	client *Client
+}
+
+func (f *FeaturesClient) SetUsage(options SetUsageOptions) error {
+	err := f.client.request("POST", "/usage", options, nil)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FeaturesClient) CreateEntity(customerID string, entity EntityOptions) error {
+	err := f.client.request("POST", "/customers/"+customerID+"/entities", []EntityOptions{entity}, nil)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FeaturesClient) CreateEntities(customerID string, entities []EntityOptions) error {
+	err := f.client.request("POST", "/customers/"+customerID+"/entities", entities, nil)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FeaturesClient) DeleteEntity(customerID string, entityID string) error {
+	err := f.client.request("DELETE", "/customers/"+customerID+"/entities/"+entityID, nil, nil)
+	if err != nil {
+		return err
+	}
+	return nil
 }

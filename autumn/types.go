@@ -279,6 +279,22 @@ type BillingPortalResponse struct {
 	URL string `json:"url"`
 }
 
+// Feature Usage Types
+
+type SetUsageOptions struct {
+	FeatureID  string  `json:"feature_id"`
+	CustomerID string  `json:"customer_id"`
+	Value      float64 `json:"value"`
+}
+
+// Entity Management Types
+
+type EntityOptions struct {
+	ID        string `json:"id"`
+	FeatureID string `json:"feature_id"`
+	Name      string `json:"name"`
+}
+
 // Product Management Types
 
 type PriceTier struct {
