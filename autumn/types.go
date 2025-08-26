@@ -253,13 +253,13 @@ type CustomerProduct struct {
 }
 
 type CustomerFeature struct {
-	FeatureID      string  `json:"feature_id"`
-	Unlimited      bool    `json:"unlimited"`
-	Interval       *string `json:"interval"`
-	Balance        *int    `json:"balance"`
-	Usage          *int    `json:"usage"`
-	IncludedUsage  *int    `json:"included_usage"`
-	NextResetAt    *int64  `json:"next_reset_at"`
+	FeatureID      string      `json:"feature_id"`
+	Unlimited      bool        `json:"unlimited"`
+	Interval       *string     `json:"interval"`
+	Balance        interface{} `json:"balance"`
+	Usage          interface{} `json:"usage"`
+	IncludedUsage  interface{} `json:"included_usage"`
+	NextResetAt    *int64      `json:"next_reset_at"`
 }
 
 type CustomerResponse struct {
@@ -272,7 +272,7 @@ type CustomerResponse struct {
 	Fingerprint *string           `json:"fingerprint"`
 	StripeID    *string           `json:"stripe_id"`
 	Products    []CustomerProduct `json:"products"`
-	Features    []CustomerFeature `json:"features"`
+	Features    interface{}       `json:"features"`
 }
 
 type BillingPortalResponse struct {
