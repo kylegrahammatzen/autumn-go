@@ -63,12 +63,50 @@ func main() {
   Event Name: %s
 `, trackResp.ID, trackResp.Code, trackResp.CustomerID, featureID, eventName)
 
+	fmt.Println("Checking access again after usage...")
 	checkResp2, err := client.Check("john_doe", checkOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	fmt.Printf(`Second check result:
+  Allowed: %t
+  Customer ID: %s
+  Code: %s`, checkResp2.Allowed, checkResp2.CustomerID, checkResp2.Code)
+
+	if checkResp2.Balance != nil {
+		fmt.Printf(`
+  Balance Info:
+    Feature ID: %s
+    Current Balance: %d
+    Required Balance: %d`, checkResp2.Balance.FeatureID, checkResp2.Balance.Balance, checkResp2.Balance.RequiredBalance)
+	}
+	fmt.Println()
+
 	if !checkResp2.Allowed {
 		fmt.Println("Customer has run out of chat messages.")
+		
+		fmt.Println("Creating checkout session...")
+		checkoutOptions := autumn.CheckoutOptions{
+			ProductID:  autumn.StringPtr("pro"),
+			SuccessURL: autumn.StringPtr("https://example.com/success"),
+		}
+		
+		checkoutResp, err := client.Checkout("john_doe", checkoutOptions)
+		if err != nil {
+			log.Fatal(err)
+		}
+		
+		if checkoutResp.URL != nil {
+			fmt.Printf("Checkout URL: %s\n", *checkoutResp.URL)
+		} else {
+			fmt.Printf(`Checkout completed:
+  Customer ID: %s
+  Total: $%.2f %s
+  Has Prorations: %t
+`, checkoutResp.CustomerID, checkoutResp.Total, checkoutResp.Currency, checkoutResp.HasProrations)
+		}
+	} else {
+		fmt.Println("Customer still has access to chat messages.")
 	}
 }
