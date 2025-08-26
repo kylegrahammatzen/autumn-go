@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	client := autumn.NewClient("am_sk_test_9Kj2LmN8qR...")
+	client := autumn.NewClient("am_sk_test_YuLgxRagPBqHV63DERwj4XiMNyyGbSXXWZS72DUzQm")
 
 	// 1. Create a new customer
 	fmt.Println("Creating new customer...")
@@ -81,7 +81,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	fmt.Printf(`Customer: %s (%s)
   Products: %d active
   Features: %d available
