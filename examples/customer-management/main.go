@@ -34,7 +34,9 @@ func main() {
 		log.Fatal(err)
 	}
 	featuresCount := 0
-	if features, ok := customer.Features.([]interface{}); ok {
+	if featuresMap, ok := customer.Features.(map[string]interface{}); ok {
+		featuresCount = len(featuresMap)
+	} else if features, ok := customer.Features.([]interface{}); ok {
 		featuresCount = len(features)
 	}
 	fmt.Printf(`Customer details:
@@ -87,14 +89,34 @@ func main() {
 	}
 
 	finalFeaturesCount := 0
-	if features, ok := finalCustomer.Features.([]interface{}); ok {
-		finalFeaturesCount = len(features)
+	if featuresMap, ok := finalCustomer.Features.(map[string]interface{}); ok {
+		finalFeaturesCount = len(featuresMap)
 		fmt.Printf(`Customer: %s (%s)
   Products: %d active
   Features: %d available
 `, *finalCustomer.Name, finalCustomer.ID, len(finalCustomer.Products), finalFeaturesCount)
 
 		// Show feature details
+		for featureID, f := range featuresMap {
+			if feature, ok := f.(map[string]interface{}); ok {
+				fmt.Printf("  - %s: ", featureID)
+				if unlimited, ok := feature["unlimited"].(bool); ok && unlimited {
+					fmt.Println("unlimited")
+				} else if balance := feature["balance"]; balance != nil {
+					fmt.Printf("%v remaining\n", balance)
+				} else {
+					fmt.Println("no balance info")
+				}
+			}
+		}
+	} else if features, ok := finalCustomer.Features.([]interface{}); ok {
+		finalFeaturesCount = len(features)
+		fmt.Printf(`Customer: %s (%s)
+  Products: %d active
+  Features: %d available
+`, *finalCustomer.Name, finalCustomer.ID, len(finalCustomer.Products), finalFeaturesCount)
+
+		// Show feature details for array format
 		for _, f := range features {
 			if feature, ok := f.(map[string]interface{}); ok {
 				featureID := feature["feature_id"]
