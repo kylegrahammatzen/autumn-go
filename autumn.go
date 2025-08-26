@@ -2,6 +2,7 @@ package autumn
 
 import (
 	"github.com/kylegrahammatzen/autumn-go/autumn"
+	"github.com/kylegrahammatzen/autumn-go/autumn/config"
 	"github.com/kylegrahammatzen/autumn-go/autumn/customers"
 	"github.com/kylegrahammatzen/autumn-go/autumn/features"
 	"github.com/kylegrahammatzen/autumn-go/autumn/features/entities"
@@ -44,6 +45,33 @@ type FreeTrialOption = products.FreeTrialOption
 type CreateProductOptions = products.CreateProductOptions
 type ProductResponse = products.ProductResponse
 
+type Config = config.Config
+type FeatureConfig = config.Feature
+type FeatureType = config.FeatureType
+type UsageModel = config.UsageModel
+type Interval = config.Interval
+type CreditSchema = config.CreditSchema
+type FeatureItem = config.FeatureItem
+type PriceItem = config.PriceItem
+type PricedFeatureItem = config.PricedFeatureItem
+type ProductConfig = config.Product
+
+const (
+	FeatureTypeSingleUse     = config.FeatureTypeSingleUse
+	FeatureTypeContinuousUse = config.FeatureTypeContinuousUse
+	FeatureTypeCreditSystem  = config.FeatureTypeCreditSystem
+	FeatureTypeBoolean       = config.FeatureTypeBoolean
+	UsageModelPrepaid        = config.UsageModelPrepaid
+	UsageModelPayPerUse      = config.UsageModelPayPerUse
+	IntervalHour             = config.IntervalHour
+	IntervalDay              = config.IntervalDay
+	IntervalWeek             = config.IntervalWeek
+	IntervalMonth            = config.IntervalMonth
+	IntervalQuarter          = config.IntervalQuarter
+	IntervalSemiAnnual       = config.IntervalSemiAnnual
+	IntervalYear             = config.IntervalYear
+)
+
 const (
 	FreeTrialDurationDay   = products.FreeTrialDurationDay
 	FreeTrialDurationMonth = products.FreeTrialDurationMonth
@@ -60,4 +88,52 @@ func StringPtr(s string) *string {
 
 func FloatPtr(f float64) *float64 {
 	return autumn.FloatPtr(f)
+}
+
+func NewFeature(id, name string, featureType FeatureType) FeatureConfig {
+	return config.FeatureConfig(id, name, featureType)
+}
+
+func CreditSystemFeature(id, name string, creditSchema []CreditSchema) FeatureConfig {
+	return config.CreditSystemFeature(id, name, creditSchema)
+}
+
+func FeatureItemConfig(featureID string) FeatureItem {
+	return config.FeatureItemConfig(featureID)
+}
+
+func FeatureItemWithUsage(featureID string, includedUsage float64, interval *Interval) FeatureItem {
+	return config.FeatureItemWithUsage(featureID, includedUsage, interval)
+}
+
+func PriceItemConfig(price float64) PriceItem {
+	return config.PriceItemConfig(price)
+}
+
+func PriceItemWithInterval(price float64, interval Interval) PriceItem {
+	return config.PriceItemWithInterval(price, interval)
+}
+
+func PricedFeatureItemConfig(featureID string, price float64) PricedFeatureItem {
+	return config.PricedFeatureItemConfig(featureID, price)
+}
+
+func PricedFeatureItemWithBilling(featureID string, price float64, billingUnits float64, usageModel UsageModel) PricedFeatureItem {
+	return config.PricedFeatureItemWithBilling(featureID, price, billingUnits, usageModel)
+}
+
+func NewProduct(id, name string, items ...config.ProductItem) ProductConfig {
+	return config.ProductConfig(id, name, items...)
+}
+
+func DefaultProduct(id, name string, items ...config.ProductItem) ProductConfig {
+	return config.DefaultProduct(id, name, items...)
+}
+
+func AddOnProduct(id, name string, items ...config.ProductItem) ProductConfig {
+	return config.AddOnProduct(id, name, items...)
+}
+
+func IntervalPtr(i Interval) *Interval {
+	return config.IntervalPtr(i)
 }
