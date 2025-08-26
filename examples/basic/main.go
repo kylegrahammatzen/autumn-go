@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	client := autumn.NewClient("am_sk_test_lYjPgVXKljm531lqkBPfpsHQ1x0mx9hH5UBsv8v4bc")
+	client := autumn.NewClient("am_sk_test_9Kj2LmN8qR...")
 
 	attachOptions := autumn.AttachOptions{
 		ProductID: autumn.StringPtr("example"),
