@@ -1,8 +1,6 @@
 # Autumn Go
 
-Autumn Go by useautumn
-
-The Go SDK for Autumn's subscription and usage tracking API. Turn any feature into a paid product with three simple functions.
+Unofficial Go SDK for Autumn's subscription and usage tracking API.
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/kylegrahammatzen/autumn-go.svg)](https://pkg.go.dev/github.com/kylegrahammatzen/autumn-go)
 [![Discord](https://img.shields.io/badge/Join%20Community-5865F2?logo=discord&logoColor=white)](https://discord.gg/53emPtY9tA)
