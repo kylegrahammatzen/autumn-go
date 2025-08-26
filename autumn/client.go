@@ -17,15 +17,18 @@ const (
 type Client struct {
 	token      string
 	httpClient *http.Client
+	Customers  *CustomersClient
 }
 
 func NewClient(token string) *Client {
-	return &Client{
+	client := &Client{
 		token: token,
 		httpClient: &http.Client{
 			Timeout: defaultTimeout,
 		},
 	}
+	client.Customers = &CustomersClient{client: client}
+	return client
 }
 
 
@@ -173,6 +176,55 @@ func (c *Client) Checkout(customerID string, options CheckoutOptions) (*Checkout
 
 	var response CheckoutResponse
 	err := c.request("POST", "/checkout", req, &response)
+	if err != nil {
+		return nil, err
+	}
+	return &response, nil
+}
+
+// CustomersClient handles all customer management operations
+type CustomersClient struct {
+	client *Client
+}
+
+func (c *CustomersClient) Create(options CreateCustomerOptions) (*CustomerResponse, error) {
+	var response CustomerResponse
+	err := c.client.request("POST", "/customers", options, &response)
+	if err != nil {
+		return nil, err
+	}
+	return &response, nil
+}
+
+func (c *CustomersClient) Get(customerID string) (*CustomerResponse, error) {
+	var response CustomerResponse
+	err := c.client.request("GET", "/customers/"+customerID, nil, &response)
+	if err != nil {
+		return nil, err
+	}
+	return &response, nil
+}
+
+func (c *CustomersClient) Update(customerID string, options UpdateCustomerOptions) (*CustomerResponse, error) {
+	var response CustomerResponse
+	err := c.client.request("POST", "/customers/"+customerID, options, &response)
+	if err != nil {
+		return nil, err
+	}
+	return &response, nil
+}
+
+func (c *CustomersClient) SetBalance(customerID string, options SetBalanceOptions) error {
+	err := c.client.request("POST", "/customers/"+customerID+"/balances", options, nil)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CustomersClient) BillingPortal(customerID string, options BillingPortalOptions) (*BillingPortalResponse, error) {
+	var response BillingPortalResponse
+	err := c.client.request("POST", "/customers/"+customerID+"/billing_portal", options, &response)
 	if err != nil {
 		return nil, err
 	}
