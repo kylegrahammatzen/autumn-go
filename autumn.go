@@ -1,6 +1,12 @@
 package autumn
 
-import "github.com/kylegrahammatzen/autumn-go/autumn"
+import (
+	"github.com/kylegrahammatzen/autumn-go/autumn"
+	"github.com/kylegrahammatzen/autumn-go/autumn/customers"
+	"github.com/kylegrahammatzen/autumn-go/autumn/features"
+	"github.com/kylegrahammatzen/autumn-go/autumn/features/entities"
+	"github.com/kylegrahammatzen/autumn-go/autumn/products"
+)
 
 type Client = autumn.Client
 
@@ -18,33 +24,30 @@ type CustomerData = autumn.CustomerData
 type Feature = autumn.Feature
 type AttachOption = autumn.AttachOption
 
-type CreateCustomerOptions = autumn.CreateCustomerOptions
-type UpdateCustomerOptions = autumn.UpdateCustomerOptions
-type SetBalanceOptions = autumn.SetBalanceOptions
-type FeatureBalance = autumn.FeatureBalance
-type BillingPortalOptions = autumn.BillingPortalOptions
-type CustomerResponse = autumn.CustomerResponse
-type BillingPortalResponse = autumn.BillingPortalResponse
-type CustomerProduct = autumn.CustomerProduct
-type CustomerFeature = autumn.CustomerFeature
+type CreateCustomerOptions = customers.CreateCustomerOptions
+type UpdateCustomerOptions = customers.UpdateCustomerOptions
+type SetBalanceOptions = customers.SetBalanceOptions
+type FeatureBalance = customers.FeatureBalance
+type BillingPortalOptions = customers.BillingPortalOptions
+type CustomerResponse = customers.CustomerResponse
+type BillingPortalResponse = customers.BillingPortalResponse
+type CustomerProduct = customers.CustomerProduct
+type CustomerFeature = customers.CustomerFeature
 
-// Feature Management Types
-type SetUsageOptions = autumn.SetUsageOptions
-type EntityOptions = autumn.EntityOptions
+type SetUsageOptions = features.SetUsageOptions
+type EntityOptions = entities.EntityOptions
 
-// Product Management Types
-type PriceTier = autumn.PriceTier
-type ProductItemConfig = autumn.ProductItemConfig
-type FreeTrialDuration = autumn.FreeTrialDuration
-type FreeTrialOption = autumn.FreeTrialOption
-type CreateProductOptions = autumn.CreateProductOptions
-type ProductResponse = autumn.ProductResponse
+type PriceTier = products.PriceTier
+type ProductItemConfig = products.ProductItemConfig
+type FreeTrialDuration = products.FreeTrialDuration
+type FreeTrialOption = products.FreeTrialOption
+type CreateProductOptions = products.CreateProductOptions
+type ProductResponse = products.ProductResponse
 
-// Free Trial Duration Constants
 const (
-	FreeTrialDurationDay   = autumn.FreeTrialDurationDay
-	FreeTrialDurationMonth = autumn.FreeTrialDurationMonth
-	FreeTrialDurationYear  = autumn.FreeTrialDurationYear
+	FreeTrialDurationDay   = products.FreeTrialDurationDay
+	FreeTrialDurationMonth = products.FreeTrialDurationMonth
+	FreeTrialDurationYear  = products.FreeTrialDurationYear
 )
 
 func NewClient(token string) *Client {
