@@ -33,12 +33,16 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	featuresCount := 0
+	if features, ok := customer.Features.([]interface{}); ok {
+		featuresCount = len(features)
+	}
 	fmt.Printf(`Customer details:
   ID: %s
   Autumn ID: %s
   Products: %d
   Features: %d
-`, customer.ID, customer.AutumnID, len(customer.Products), len(customer.Features))
+`, customer.ID, customer.AutumnID, len(customer.Products), featuresCount)
 
 	// 3. Set feature balance (give bonus credits)
 	fmt.Println("\nSetting bonus feature balance...")
@@ -82,20 +86,32 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf(`Customer: %s (%s)
+	finalFeaturesCount := 0
+	if features, ok := finalCustomer.Features.([]interface{}); ok {
+		finalFeaturesCount = len(features)
+		fmt.Printf(`Customer: %s (%s)
   Products: %d active
   Features: %d available
-`, *finalCustomer.Name, finalCustomer.ID, len(finalCustomer.Products), len(finalCustomer.Features))
+`, *finalCustomer.Name, finalCustomer.ID, len(finalCustomer.Products), finalFeaturesCount)
 
-	// Show feature details
-	for _, feature := range finalCustomer.Features {
-		fmt.Printf(`  - %s: `, feature.FeatureID)
-		if feature.Unlimited {
-			fmt.Println("unlimited")
-		} else if feature.Balance != nil {
-			fmt.Printf("%d remaining\n", *feature.Balance)
-		} else {
-			fmt.Println("no balance info")
+		// Show feature details
+		for _, f := range features {
+			if feature, ok := f.(map[string]interface{}); ok {
+				featureID := feature["feature_id"]
+				fmt.Printf("  - %v: ", featureID)
+				if unlimited, ok := feature["unlimited"].(bool); ok && unlimited {
+					fmt.Println("unlimited")
+				} else if balance := feature["balance"]; balance != nil {
+					fmt.Printf("%v remaining\n", balance)
+				} else {
+					fmt.Println("no balance info")
+				}
+			}
 		}
+	} else {
+		fmt.Printf(`Customer: %s (%s)
+  Products: %d active
+  Features: unknown format
+`, *finalCustomer.Name, finalCustomer.ID, len(finalCustomer.Products))
 	}
 }
