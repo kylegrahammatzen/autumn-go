@@ -17,9 +17,6 @@
 # Go workspace file
 go.work
 
-# Claude-specific files
-.claude/
-
 # IDE files
 .vscode/
 .idea/
@@ -39,3 +36,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Claude-specific files
+.claude/
