@@ -9,3 +9,11 @@ Complete demonstration of the core Autumn SDK functionality including:
 - Feature access checking with balance information  
 - Usage tracking and consumption
 - Automated checkout flow for upgrades
+
+### [Customer Management](./customer-management/)
+
+Customer lifecycle management operations including:
+- Creating and updating customer profiles
+- Retrieving detailed customer information
+- Setting feature balances manually
+- Generating billing portal URLs for self-service
